@@ -57,7 +57,8 @@
                                 <div class="zf-tempContDiv">
                                     <span> <input type="text" name="SingleLine" checktype="c1" value="" maxlength="255"
                                             fieldType=1 placeholder="" /></span>
-                                    <p id="SingleLine_error" class="zf-errorMessage" style="display:none;">Please complete the required field.
+                                    <p id="SingleLine_error" class="zf-errorMessage" style="display:none;">Please
+                                        complete the required field.
                                     </p>
                                 </div>
                                 <div class="zf-clearBoth"></div>
@@ -70,7 +71,8 @@
                                 <div class="zf-tempContDiv">
                                     <span> <input type="text" name="SingleLine1" checktype="c1" value="" maxlength="255"
                                             fieldType=1 placeholder="" /></span>
-                                    <p id="SingleLine1_error" class="zf-errorMessage" style="display:none;">Please complete the required field.
+                                    <p id="SingleLine1_error" class="zf-errorMessage" style="display:none;">Please
+                                        complete the required field.
                                     </p>
                                 </div>
                                 <div class="zf-clearBoth"></div>
@@ -79,17 +81,21 @@
                         <!---------Single Line Ends Here---------->
                         <!---------Email Starts Here---------->
                         <div class="name-item-2">
-                            <li class="zf-tempFrmWrapper zf-large"><label class="zf-labelName">
-                                    Email
-                                    <em class="zf-important">*</em>
-                                </label>
-                                <div class="zf-tempContDiv">
-                                    <span> <input fieldType=9 type="text" maxlength="255" name="Email" checktype="c5"
-                                            value="" placeholder="" id="Email" /></span>
-                                    <p id="Email_error" class="zf-errorMessage" style="display:none;">Please complete the required field.</p>
-                                </div>
-                                <div class="zf-clearBoth"></div>
-                            </li><!---------Email Ends Here---------->
+                            <li class="zf-tempFrmWrapper zf-large col2"><label class="zf-labelName">
+                                Email
+                                <em class="zf-important">*</em>
+                            </label>
+                            <div class="zf-tempContDiv">
+                                <span id="loaderContainer"> <input fieldType=9 type="text" maxlength="255"
+                                        name="Email" checktype="c5" value="" placeholder="" id="Email" />
+                                    <div id="loader"></div>
+                                </span>
+                                <p id="Email_error" class="zf-errorMessage" style="display:none;">Please complete
+                                    this required field.</p>
+                            </div>
+                            <div class="zf-clearBoth"></div>
+                        </li>
+                            <!---------Email Ends Here---------->
                             <!---------Currency Starts Here---------->
                             <li class="zf-tempFrmWrapper zf-currency zf-csmall"><label class="zf-labelName">
                                     Desired Credit Limit
@@ -101,7 +107,8 @@
 
                                         <div class="zf-clearBoth"></div>
                                     </div>
-                                    <p id="Currency1_error" class="zf-errorMessage" style="display:none;">Please complete the required field.
+                                    <p id="Currency1_error" class="zf-errorMessage" style="display:none;">Please
+                                        complete the required field.
                                     </p>
                                 </div>
                                 <div class="zf-clearBoth"></div><!---------Currency Starts Here---------->
@@ -120,7 +127,8 @@
                                 <div class="zf-tempContDiv">
                                     <span> <input type="text" name="SingleLine20" checktype="c1" value=""
                                             maxlength="255" fieldType=1 placeholder="" /></span>
-                                    <p id="SingleLine20_error" class="zf-errorMessage" style="display:none;">Please complete the required field.
+                                    <p id="SingleLine20_error" class="zf-errorMessage" style="display:none;">Please
+                                        complete the required field.
                                     </p>
                                 </div>
                                 <div class="zf-clearBoth"></div>
@@ -132,7 +140,8 @@
                                 <div class="zf-tempContDiv">
                                     <span> <input fieldType=9 type="text" maxlength="255" name="Email3" checktype="c5"
                                             value="" placeholder="" /></span>
-                                    <p id="Email3_error" class="zf-errorMessage" style="display:none;">Please complete the required field.</p>
+                                    <p id="Email3_error" class="zf-errorMessage" style="display:none;">Please complete
+                                        the required field.</p>
                                 </div>
                                 <div class="zf-clearBoth"></div>
                             </li>
@@ -147,15 +156,32 @@
         </form>
     </div><!-- 'zf-templateWidth' ends -->
     <script type="text/javascript">var zf_DateRegex = new RegExp("^(([0][1-9])|([1-2][0-9])|([3][0-1]))[-](Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[-](?:(?:19|20)[0-9]{2})$");
-        var zf_MandArray = ["SingleLine","SingleLine1", "Email"];
+        var zf_MandArray = ["SingleLine", "SingleLine1", "Email"];
         var zf_FieldArray = ["SingleLine", "SingleLine1", "Email", "Currency1", "SingleLine20", "Email3"];
         var isSalesIQIntegrationEnabled = false;
         var salesIQFieldsArray = [];
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
         window.addEventListener('message', function (event) {
             var email = event.data;
             document.getElementById('Email').value = email;
+            document.getElementById("Email").readOnly = true;
+            let checkField = setInterval(function () {
+                if ($('#Email').val() !== '') {
+                    $('#loader').hide();
+                    clearInterval(checkField);
+                }
+            }, 100);
+            $('#loader').hide();
+        });
+    </script>
+    <script>
+        $('form').submit(function () {
+            $('#zf-submitColor').prop('disabled', true);
+            setTimeout(function () {
+                $('#zf-submitColor').prop('disabled', false);
+            }, 5000);
         });
     </script>
 </body>
